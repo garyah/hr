@@ -1,105 +1,42 @@
-#include <assert.h>
-#include <limits.h>
-#include <math.h>
-#include <stdbool.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+import java.io.*;
+import java.math.*;
+import java.text.*;
+import java.util.*;
+import java.util.regex.*;
 
-char* readline();
-char** split_string(char*);
+public class Solution {
 
-/*
- * Complete the simpleArraySum function below.
- */
-int simpleArraySum(int ar_count, int* ar) {
     /*
-     * Write your code here.
+     * Complete the simpleArraySum function below.
      */
+    static int simpleArraySum(int[] ar) {
+        /*
+         * Write your code here.
+         */
 
-}
-
-int main()
-{
-    FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
-
-    char* ar_count_endptr;
-    char* ar_count_str = readline();
-    int ar_count = strtol(ar_count_str, &ar_count_endptr, 10);
-
-    if (ar_count_endptr == ar_count_str || *ar_count_endptr != '\0') { exit(EXIT_FAILURE); }
-
-    char** ar_temp = split_string(readline());
-
-    int ar[ar_count];
-
-    for (int ar_itr = 0; ar_itr < ar_count; ar_itr++) {
-        char* ar_item_endptr;
-        char* ar_item_str = ar_temp[ar_itr];
-        int ar_item = strtol(ar_item_str, &ar_item_endptr, 10);
-
-        if (ar_item_endptr == ar_item_str || *ar_item_endptr != '\0') { exit(EXIT_FAILURE); }
-
-        ar[ar_itr] = ar_item;
     }
 
-    int result = simpleArraySum(ar_count, ar);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    fprintf(fptr, "%d\n", result);
+    public static void main(String[] args) throws IOException {
+        BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-    fclose(fptr);
+        int arCount = Integer.parseInt(scanner.nextLine().trim());
 
-    return 0;
-}
+        int[] ar = new int[arCount];
 
-char* readline() {
-    size_t alloc_length = 1024;
-    size_t data_length = 0;
-    char* data = malloc(alloc_length);
+        String[] arItems = scanner.nextLine().split(" ");
 
-    while (true) {
-        char* cursor = data + data_length;
-        char* line = fgets(cursor, alloc_length - data_length, stdin);
-
-        if (!line) { break; }
-
-        data_length += strlen(cursor);
-
-        if (data_length < alloc_length - 1 || data[data_length - 1] == '\n') { break; }
-
-        size_t new_length = alloc_length << 1;
-        data = realloc(data, new_length);
-
-        if (!data) { break; }
-
-        alloc_length = new_length;
-    }
-
-    if (data[data_length - 1] == '\n') {
-        data[data_length - 1] = '\0';
-    }
-
-    data = realloc(data, data_length);
-
-    return data;
-}
-
-char** split_string(char* str) {
-    char** splits = NULL;
-    char* token = strtok(str, " ");
-
-    int spaces = 0;
-
-    while (token) {
-        splits = realloc(splits, sizeof(char*) * ++spaces);
-        if (!splits) {
-            return splits;
+        for (int arItr = 0; arItr < arCount; arItr++) {
+            int arItem = Integer.parseInt(arItems[arItr].trim());
+            ar[arItr] = arItem;
         }
 
-        splits[spaces - 1] = token;
+        int result = simpleArraySum(ar);
 
-        token = strtok(NULL, " ");
+        bufferedWriter.write(String.valueOf(result));
+        bufferedWriter.newLine();
+
+        bufferedWriter.close();
     }
-
-    return splits;
 }
