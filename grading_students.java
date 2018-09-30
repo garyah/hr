@@ -13,7 +13,18 @@ public class Solution {
         /*
          * Write your code here.
          */
-
+         int[] result = new int[grades.length];
+         for (int i = 0; i < grades.length; i++) {
+             int roundedGrade = grades[i];
+             if (roundedGrade >= 38) {
+                 int nextFiveMultipleOffset = 5 - (roundedGrade - roundedGrade / 5 * 5);
+                 if (nextFiveMultipleOffset <= 2) {
+                    roundedGrade += nextFiveMultipleOffset;
+                 }
+             }
+             result[i] = roundedGrade;
+         }
+        return result;
     }
 
     private static final Scanner scan = new Scanner(System.in);
