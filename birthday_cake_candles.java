@@ -10,6 +10,17 @@ public class Solution {
 
     // Complete the birthdayCakeCandles function below.
     static int birthdayCakeCandles(int[] ar) {
+        int maximumHeight = 0;
+        int numberOfTallestCandles = 0;
+        for (int i : ar) {
+            if (maximumHeight == 0 || i > maximumHeight) {
+                maximumHeight = i;
+                numberOfTallestCandles = 1;
+            } else if (i == maximumHeight) {
+                numberOfTallestCandles += 1;
+            }
+        }
+        return numberOfTallestCandles;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
