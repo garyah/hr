@@ -10,6 +10,14 @@ public class Solution {
 
     // Complete the diagonalDifference function below.
     static int diagonalDifference(int[][] arr) {
+        int size = arr[0].length;
+        int primaryDiagonal = 0;
+        int secondaryDiagonal = 0;
+        for (int i = 0, j = size - 1; i < size; i++, j--) {
+            primaryDiagonal += arr[i][i];
+            secondaryDiagonal += arr[i][j];
+        }
+        return Math.abs(primaryDiagonal - secondaryDiagonal);
     }
 
     private static final Scanner scanner = new Scanner(System.in);
