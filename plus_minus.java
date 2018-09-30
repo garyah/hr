@@ -10,6 +10,23 @@ public class Solution {
 
     // Complete the plusMinus function below.
     static void plusMinus(int[] arr) {
+        int numberOfPositiveValues = 0;
+        int numberOfNegativeValues = 0;
+        int numberOfZeroValues = 0;
+        for (int i : arr) {
+            if (i > 0)
+                numberOfPositiveValues += 1;
+            else if (i < 0)
+                numberOfNegativeValues += 1;
+            else
+                numberOfZeroValues += 1;
+        }
+        float ratioOfPositiveValues = (float) numberOfPositiveValues / (float) arr.length;
+        float ratioOfNegativeValues = (float) numberOfNegativeValues / (float) arr.length;
+        float ratioOfZeroValues = (float) numberOfZeroValues / (float) arr.length;
+        System.out.println(ratioOfPositiveValues);
+        System.out.println(ratioOfNegativeValues);
+        System.out.println(ratioOfZeroValues);
     }
 
     private static final Scanner scanner = new Scanner(System.in);
