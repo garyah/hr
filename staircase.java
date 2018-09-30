@@ -10,6 +10,11 @@ public class Solution {
 
     // Complete the staircase function below.
     static void staircase(int n) {
+        for (int line = 0; line < n; line++) {
+            for (int numSpaces = 0; numSpaces < n - 1 - line; numSpaces++) { System.out.print(" "); }
+            for (int numHashes = 0; numHashes < line + 1; numHashes++) { System.out.print("#"); }
+            System.out.println("");
+        }
     }
 
     private static final Scanner scanner = new Scanner(System.in);
