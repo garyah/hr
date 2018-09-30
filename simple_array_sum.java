@@ -13,7 +13,11 @@ public class Solution {
         /*
          * Write your code here.
          */
-
+        int sum = 0;
+        for (int i : ar) {
+            sum += i;
+        }
+        return sum;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
