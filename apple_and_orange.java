@@ -10,6 +10,20 @@ public class Solution {
 
     // Complete the countApplesAndOranges function below.
     static void countApplesAndOranges(int s, int t, int a, int b, int[] apples, int[] oranges) {
+        System.out.println(numberOfFruitHits(s, t, a, apples));
+        System.out.println(numberOfFruitHits(s, t, b, oranges));
+    }
+
+    static int numberOfFruitHits(int startPosition, int endPosition,
+                               int treePosition, int[] fruitPositions) {
+        int result = 0;
+        for (int i : fruitPositions) {
+            int fruitTestPosition = treePosition + i;
+            if (fruitTestPosition >= startPosition && fruitTestPosition <= endPosition) {
+                result += 1;
+            }
+        }
+        return result;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
