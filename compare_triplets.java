@@ -10,8 +10,16 @@ public class Solution {
 
     // Complete the compareTriplets function below.
     static List<Integer> compareTriplets(List<Integer> a, List<Integer> b) {
-
-
+        int aScore = 0;
+        int bScore = 0;
+        for (int i = 0; i < 3; i++) {
+            if (a.get(i) > b.get(i)) aScore += 1;
+            else if (b.get(i) > a.get(i)) bScore += 1;
+        }
+        List<Integer> result = new ArrayList<Integer>();
+        result.add(0, aScore);
+        result.add(1, bScore);
+        return result;
     }
 
     public static void main(String[] args) throws IOException {
