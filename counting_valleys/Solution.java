@@ -10,7 +10,14 @@ public class Solution {
 
     // Complete the countingValleys function below.
     static int countingValleys(int n, String s) {
-        return 0;
+        int altitude = 0;
+        int numOfValleys = 0;
+        for (int i = 0; i < n; i++) {
+            int step = s.charAt(i) == 'U' ? 1 : -1;
+            altitude += step;
+            if (altitude == 0 && step > 0) numOfValleys++;
+        }
+        return numOfValleys;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
