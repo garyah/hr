@@ -10,14 +10,15 @@ public class Solution {
 
     // Complete the alternatingCharacters function below.
     static int alternatingCharacters(String s) {
-        String alternatingString = "";
+        char alternatingString[] = new char[s.length()];
+        int lastIndex = -1;
         char foundChar;
         for (int i = 0; i < s.length(); ) {
             foundChar = s.charAt(i);
-            alternatingString += foundChar;
+            alternatingString[++lastIndex] = foundChar;
             while (++i < s.length() && s.charAt(i) == foundChar);
         }
-        return s.length() - alternatingString.length();
+        return s.length() - (lastIndex + 1);
     }
 
     private static final Scanner scanner = new Scanner(System.in);
