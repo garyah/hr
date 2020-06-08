@@ -10,7 +10,16 @@ public class Solution {
 
     // Complete the maximumToys function below.
     static int maximumToys(int[] prices, int k) {
-        return 0;
+        Arrays.sort(prices);
+        int maxNumItems = 0;
+        int moneyRemaining = k;
+        for (int price : prices) {
+            if (price > moneyRemaining) break;
+            maxNumItems++;
+            moneyRemaining -= price;
+            if (moneyRemaining == 0) break;
+        }
+        return maxNumItems;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
