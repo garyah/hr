@@ -10,7 +10,20 @@ public class Solution {
 
     // Complete the sockMerchant function below.
     static int sockMerchant(int n, int[] ar) {
-        return 0;
+        Arrays.sort(ar);
+        int numOfPairs = 0;
+        int currentColor = ar[0];
+        int numOfColor = 0;
+        for (int sockColor : ar) {
+            if (sockColor == currentColor) {
+                numOfColor++;
+            } else {
+                currentColor = sockColor;
+                numOfPairs += numOfColor / 2;
+                numOfColor = 0;
+            }
+        }
+        return numOfPairs;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
