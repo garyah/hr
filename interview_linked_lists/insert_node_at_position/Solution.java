@@ -64,7 +64,21 @@ public class Solution {
      *
      */
     static SinglyLinkedListNode insertNodeAtPosition(SinglyLinkedListNode head, int data, int position) {
-        return new SinglyLinkedListNode(0);
+        SinglyLinkedListNode nodeToInsert = new SinglyLinkedListNode(data);
+        if (head == null) return nodeToInsert;
+        SinglyLinkedListNode nodeToInsertBefore = head;
+        SinglyLinkedListNode nodeToInsertAfter = null;
+        for (int i = 0; i < position; i++) {
+            nodeToInsertAfter = nodeToInsertBefore;
+            nodeToInsertBefore = nodeToInsertBefore.next;
+        }
+        if (nodeToInsertBefore == head) {
+            nodeToInsert.next = head;
+            return nodeToInsert;
+        }
+        nodeToInsertAfter.next = nodeToInsert;
+        nodeToInsert.next = nodeToInsertBefore;
+        return head;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
