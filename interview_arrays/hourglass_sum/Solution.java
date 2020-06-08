@@ -10,7 +10,20 @@ public class Solution {
 
     // Complete the hourglassSum function below.
     static int hourglassSum(int[][] arr) {
-        return 0;
+        int[][] hourglassSum = new int[4][4];
+        int maxHourGlassSum = -100;
+        for (int startRow = 0; startRow < 4; startRow++) {
+            for (int startCol = 0; startCol < 4; startCol++) {
+                for (int row = startRow; row < startRow + 3; row++) {
+                    for (int col = startCol; col < startCol + 3; col++) {
+                        if (row == startRow + 1 && col != startCol +1) continue;
+                        hourglassSum[startRow][startCol] += arr[row][col];
+                    }
+                }
+                if (hourglassSum[startRow][startCol] > maxHourGlassSum) maxHourGlassSum = hourglassSum[startRow][startCol];
+            }
+        }
+        return maxHourGlassSum;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
