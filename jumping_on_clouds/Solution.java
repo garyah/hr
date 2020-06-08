@@ -10,7 +10,17 @@ public class Solution {
 
     // Complete the jumpingOnClouds function below.
     static int jumpingOnClouds(int[] c) {
-        return 0;
+        int numJumps = 0;
+        for (int i = 0; i < c.length; i++) {
+            if (i + 2 < c.length && c[i + 2] == 0) {
+                i++;
+                numJumps++;
+            }
+            else if (i + 1 < c.length && c[i + 1] == 0) {
+                numJumps++;
+            }
+        }
+        return numJumps;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
