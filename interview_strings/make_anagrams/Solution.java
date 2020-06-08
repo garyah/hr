@@ -10,7 +10,19 @@ public class Solution {
 
     // Complete the makeAnagram function below.
     static int makeAnagram(String a, String b) {
-        return 0;
+        int firstStringLetterCount[] = new int[26];
+        for (int i = 0; i < a.length(); i++) {
+            ++firstStringLetterCount[a.charAt(i) - 'a'];
+        }
+        int secondStringLetterCount[] = new int[26];
+        for (int i = 0; i < b.length(); i++) {
+            ++secondStringLetterCount[b.charAt(i) - 'a'];
+        }
+        int minNumDeletions = 0;
+        for (int i = 0; i < 26; i++) {
+            minNumDeletions += Math.abs(firstStringLetterCount[i] - secondStringLetterCount[i]);
+        }
+        return minNumDeletions;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
