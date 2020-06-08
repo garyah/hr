@@ -10,7 +10,20 @@ public class Solution {
 
     // Complete the twoStrings function below.
     static String twoStrings(String s1, String s2) {
-        return "boo";
+        boolean firstStringLetterFlag[] = new boolean[26];
+        for (int i = 0; i < s1.length(); i++) {
+            firstStringLetterFlag[s1.charAt(i) - 'a'] = true;
+        }
+        boolean secondStringLetterFlag[] = new boolean[26];
+        for (int i = 0; i < s2.length(); i++) {
+            secondStringLetterFlag[s2.charAt(i) - 'a'] = true;
+        }
+        for (int i = 0; i < 26; i++) {
+            if (firstStringLetterFlag[i] && secondStringLetterFlag[i]) {
+                return "YES";
+            }
+        }
+        return "NO";
     }
 
     private static final Scanner scanner = new Scanner(System.in);
