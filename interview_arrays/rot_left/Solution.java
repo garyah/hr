@@ -10,7 +10,12 @@ public class Solution {
 
     // Complete the rotLeft function below.
     static int[] rotLeft(int[] a, int d) {
-        return a;
+        int rotatedArray[] = new int[a.length];
+        int offset = a.length - d % a.length;
+        for (int i = 0; i < a.length; i++) {
+            rotatedArray[(i + offset) % a.length] = a[i];
+        }
+        return rotatedArray;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
