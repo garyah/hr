@@ -20,7 +20,7 @@ public class Solution {
             } else {
                 currentColor = sockColor;
                 numOfPairs += numOfColor / 2;
-                numOfColor = 0;
+                numOfColor = 1;
             }
         }
         return numOfPairs;
