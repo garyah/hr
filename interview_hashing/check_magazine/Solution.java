@@ -10,6 +10,24 @@ public class Solution {
 
     // Complete the checkMagazine function below.
     static void checkMagazine(String[] magazine, String[] note) {
+        boolean hasAllWords = true;
+        for (String wordInNote : note) {
+            int wordInNoteHash = wordInNote.hashCode();
+            boolean wordFound = false;
+            for (int i = 0; i < magazine.length; i++) {
+                if (magazine[i] == " ") continue;
+                if (wordInNoteHash == magazine[i].hashCode() && wordInNote.equals(magazine[i])) {
+                    wordFound = true;
+                    magazine[i] = " ";
+                    break;
+                }
+            }
+            if (!wordFound) {
+                hasAllWords = false;
+                break;
+            }
+        }
+        System.out.println(hasAllWords ? "Yes" : "No");
     }
 
     private static final Scanner scanner = new Scanner(System.in);
