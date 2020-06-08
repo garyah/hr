@@ -13,14 +13,14 @@ public class Solution {
         Arrays.sort(ar);
         int numOfPairs = 0;
         int currentColor = ar[0];
-        int numOfColor = 0;
+        int numSocksCurrentColor = 0;
         for (int sockColor : ar) {
             if (sockColor == currentColor) {
-                numOfColor++;
+                numSocksCurrentColor++;
+                if (numSocksCurrentColor % 2 == 0) numOfPairs++;
             } else {
                 currentColor = sockColor;
-                numOfPairs += numOfColor / 2;
-                numOfColor = 1;
+                numSocksCurrentColor = 1;
             }
         }
         return numOfPairs;
