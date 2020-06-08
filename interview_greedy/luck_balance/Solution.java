@@ -10,7 +10,30 @@ public class Solution {
 
     // Complete the luckBalance function below.
     static int luckBalance(int k, int[][] contests) {
-        return 0;
+        int importantLuckValues[] = new int[contests.length];
+        int numImportantContests = 0;
+        int luckBalance = 0;
+        for (int i = 0; i < contests.length; i++) {
+            if (contests[i][1] == 1) {
+                importantLuckValues[i] = contests[i][0];
+                numImportantContests++;
+            }
+            else {
+                importantLuckValues[i] = 20 * 1000;
+                luckBalance += contests[i][0];
+            }
+        }
+        Arrays.sort(importantLuckValues);
+        int luckToSubtract = 0;
+        int i = 0;
+        for ( ; i < numImportantContests - k; i++) {
+            luckToSubtract += importantLuckValues[i];
+        }
+        luckBalance -= luckToSubtract;
+        for ( ; i < numImportantContests; i++) {
+            luckBalance += importantLuckValues[i];
+        }
+        return luckBalance;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
