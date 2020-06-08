@@ -18,3 +18,6 @@ Strings:
 Greedy algorithms:
 13. 10 mins (+9 mins to optimize for validation errors)
 14. 28 mins
+
+stopped a problem at 1:29pm for work mtg
+restarted problem at 2:55pm or even 3pm
