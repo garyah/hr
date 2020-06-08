@@ -10,12 +10,11 @@ public class Solution {
 
     // Complete the minimumAbsoluteDifference function below.
     static int minimumAbsoluteDifference(int[] arr) {
+        Arrays.sort(arr);
         int minAbsDiff = 2 * 1000 * 1000 * 1000;
-        for (int i = 0; i < arr.length; i++) {
-            for (int j = i + 1; j < arr.length; j++) {
-                int absDiff = Math.abs(arr[i] - arr[j]);
-                if (absDiff < minAbsDiff) minAbsDiff = absDiff;
-            }
+        for (int i = 0; i < arr.length - 1; i++) {
+            int absDiff = Math.abs(arr[i] - arr[i + 1]);
+            if (absDiff < minAbsDiff) minAbsDiff = absDiff;
         }
         return minAbsDiff;
     }
