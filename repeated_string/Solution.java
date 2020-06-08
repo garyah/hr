@@ -10,7 +10,17 @@ public class Solution {
 
     // Complete the repeatedString function below.
     static long repeatedString(String s, long n) {
-        return 0;
+        long numAs = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s.charAt(i) == 'a') numAs++;
+        }
+        long numWholeStrings = n / (long) (s.length());
+        long remainingStringLength = n % (long) (s.length());
+        numAs *= numWholeStrings;
+        for (int i = 0; i < remainingStringLength; i++) {
+            if (s.charAt(i) == 'a') numAs++;
+        }
+        return numAs;
     }
 
     private static final Scanner scanner = new Scanner(System.in);
