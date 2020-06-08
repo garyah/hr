@@ -22,7 +22,15 @@ class Solution {
         Node right;
 	*/
 	public static int height(Node root) {
-        return 0;
+        if (root == null) return 0;
+        return traverse(root) - 1;
+    }
+
+    private static int traverse(Node node) {
+        if (node == null) return 0;
+        int heightLeft = traverse(node.left);
+        int heightRight = traverse(node.right);
+        return Math.max(heightLeft, heightRight) + 1;
     }
 
 	public static Node insert(Node root, int data) {
