@@ -1,0 +1,20 @@
+Warm-up:
+1. 45 mins (bug took 15 mins)
+2. 11 mins
+3. 20 mins
+4. 15 mins
+Arrays:
+5. 25 mins
+6. 2 mins (not really, but forgot to check in on time at start)
+Hashing:
+7. 31 mins
+8. 9 mins
+Sorting:
+9. 6 mins
+10. 10 mins
+Strings:
+11. 15 mins
+12. 19 mins (+ up to 24 mins to optimize for validation errors)
+Greedy algorithms:
+13. 10 mins (+9 mins to optimize for validation errors)
+14. 28 mins
