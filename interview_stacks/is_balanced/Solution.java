@@ -1,23 +1,58 @@
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
+// import java.math.*;
+// import java.security.*;
+// import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
+// import java.util.concurrent.*;
+// import java.util.regex.*;
 
 public class Solution {
 
     // Complete the isBalanced function below.
     static String isBalanced(String s) {
-        Stack<String> stack = new Stack<String>();
+        // for stack items, use an array of characters, instead of string
+        Stack<char[]> stack = new Stack<char[]>();
         for (int i = 0; i < s.length(); i++) {
-            if (s.charAt(i) == '(' || s.charAt(i) == '[' || s.charAt(i) == '{') {
-                String item = s.charAt(i);
-                stack.push(s.charAt(i));
+            // retrieve next bracket
+            char[] c_arr = new char[]{s.charAt(i)};
+            char c = c_arr[0];
+
+            // push all left brackets
+            if (c == '(' || c == '[' || c == '{') {
+                stack.push(c_arr);
+                continue;
+            }
+
+            // ignore all non-bracket characters
+            if (c != ')' && c != ']' && c != '}') {
+                continue;
+            }
+
+            // process right brackets, rejecting mismatches with last
+            char last = stack.peek()[0];
+            if (c == ')') {
+                if (last == '(') {
+                    stack.pop();
+                    continue;
+                }
+                return "NO";
+            }
+            if (c == ']') {
+                if (last == '[') {
+                    stack.pop();
+                    continue;
+                }
+                return "NO";
+            }
+            if (c == '}') {
+                if (last == '{') {
+                    stack.pop();
+                    continue;
+                }
+                return "NO";
             }
         }
-        return "";
+        return "YES";
     }
 
     private static final Scanner scanner = new Scanner(System.in);
