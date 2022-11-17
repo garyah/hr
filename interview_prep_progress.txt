@@ -20,6 +20,9 @@ Greedy algorithms:
 14. 28 mins
 Recursion:
 15. 135 mins (bunch of time spent to dabble with Long/Double/BigInteger, and also not building a 10GB string!)
+Stacks and Queues:
+16. 90 mins (was interrupted, problem was also started some time ago, but never finished)
+
 
 stopped a problem at 1:29pm for work mtg
 restarted problem at 2:55pm or even 3pm
