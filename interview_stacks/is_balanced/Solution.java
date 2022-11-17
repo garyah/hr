@@ -1,25 +1,22 @@
 import java.io.*;
-// import java.math.*;
-// import java.security.*;
-// import java.text.*;
 import java.util.*;
-// import java.util.concurrent.*;
-// import java.util.regex.*;
 
 public class Solution {
 
     // Complete the isBalanced function below.
     static String isBalanced(String s) {
-        // for stack items, use an array of characters, instead of string
-        Stack<char[]> stack = new Stack<char[]>();
+        // range check
+        if (s.length() < 1 || s.length() > 1000) return "NO";
+
+        // for stack, use array of characters, instead of string
+        StringBuilder stack = new StringBuilder();
         for (int i = 0; i < s.length(); i++) {
             // retrieve next bracket
-            char[] c_arr = new char[]{s.charAt(i)};
-            char c = c_arr[0];
+            char c = s.charAt(i);
 
             // push all left brackets
             if (c == '(' || c == '[' || c == '{') {
-                stack.push(c_arr);
+                stack.append(c);
                 continue;
             }
 
@@ -28,31 +25,37 @@ public class Solution {
                 continue;
             }
 
+            // stack cannot be empty at this point!
+            if (stack.length() == 0) return "NO";
+
             // process right brackets, rejecting mismatches with last
-            char last = stack.peek()[0];
+            char last = stack.charAt(stack.length() - 1);
             if (c == ')') {
                 if (last == '(') {
-                    stack.pop();
+                    stack.setLength(stack.length() - 1);
                     continue;
                 }
                 return "NO";
             }
             if (c == ']') {
                 if (last == '[') {
-                    stack.pop();
+                    stack.setLength(stack.length() - 1);
                     continue;
                 }
                 return "NO";
             }
             if (c == '}') {
                 if (last == '{') {
-                    stack.pop();
+                    stack.setLength(stack.length() - 1);
                     continue;
                 }
                 return "NO";
             }
         }
-        return "YES";
+
+        // if stack is empty, all things balanced out
+        if (stack.length() == 0) return "YES";
+        return "NO";
     }
 
     private static final Scanner scanner = new Scanner(System.in);
