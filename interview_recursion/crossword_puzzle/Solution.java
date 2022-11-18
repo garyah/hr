@@ -48,8 +48,8 @@ class Result {
 
         System.out.println("list of slots:");
         printSlots(slots);
-        System.out.println("crossword output:");
-        printCrossword(output);
+        // System.out.println("crossword output:");
+        // printCrossword(output);
 
         return output;
     }
@@ -87,35 +87,58 @@ class Result {
         List<Slot> slots = new ArrayList<Slot>();
 
         // scan top to bottom, left to right, looking for places to start walk of grid to make slots
-        for (int row = 0; row < numRows; row++) {
-            for (int col = 0; col < numCols; col++) {
-                char c = grid[row][col];
+        for (int row = 0; row < numRows - 1; row++) {
+            for (int col = 0; col < numCols - 1; col++) {
+                char origin = grid[row][col];
                 // cell not part of a slot
-                if (c == '+') continue;
+                if (origin == '+') continue;
+
                 // cell part of one or more slots
-                if (c == '-') {
-                    // traverse right
-                    Slot rightSlot = new Slot();
-                    rightSlot.orientation = Direction.Right;
-                    rightSlot.startRow = row;
-                    rightSlot.startCol = col;
-                    rightSlot.size = 1;
-                    walkGrid(grid, row, col, Direction.Right, rightSlot, slots);
+                if (origin == '-' || origin == '=') {
+                    // mark all clean origin cells for debugging, visualization
+                    if (origin == '-') grid[row][col] = '*';
 
-                    // traverse down
-                    Slot downSlot = new Slot();
-                    downSlot.orientation = Direction.Down;
-                    downSlot.startRow = row;
-                    downSlot.startCol = col;
-                    downSlot.size = 1;
-                    walkGrid(grid, row, col, Direction.Down, downSlot, slots);
+                    // initialize state
+                    boolean isWalked = false;
 
-                    continue;
+                    // look right
+                    char next = grid[row][col + 1];
+                    if (next != '+') {
+                        // traverse right, if part of a slot
+                        Slot rightSlot = new Slot();
+                        rightSlot.orientation = Direction.Right;
+                        rightSlot.startRow = row;
+                        rightSlot.startCol = col;
+                        rightSlot.size = 1;
+                        isWalked = true;
+                        walkGrid(grid, row, col + 1, origin, rightSlot, slots);
+                    }
+
+                    // look down
+                    next = grid[row + 1][col];
+                    if (next != '+') {
+                        // traverse down, if part of a slot
+                        Slot downSlot = new Slot();
+                        downSlot.orientation = Direction.Down;
+                        downSlot.startRow = row;
+                        downSlot.startCol = col;
+                        downSlot.size = 1;
+                        isWalked = true;
+                        walkGrid(grid, row + 1, col, origin, downSlot, slots);
+                    }
+
+                    // deal with special case of no walk, from a cell part of one or more slots, not already traversed
+                    if (!isWalked && origin == '-') {
+                        Slot slot = new Slot();
+                        slot.orientation = Direction.Right;
+                        slot.startRow = row;
+                        slot.startCol = col;
+                        slot.size = 1;
+                        slots.add(slot);
+                    }
                 }
             }
         }
-
-        // TODO: prune list of slots, for case of 2 of them with same start coordinates, size of 1
 
         return slots;
     }
@@ -135,40 +158,75 @@ class Result {
         return output;
     }
 
-    private static void walkGrid(char[][] grid, int row, int col, Direction dir, Slot slot, List<Slot> slots) {
-        // remember parental cell value, adjust row and column for direction
-        char parent = grid[row][col];
-        row += (dir == Direction.Down) ? 1 : 0;
-        col += (dir == Direction.Right) ? 1 : 0;
+    private static void walkGrid(char[][] grid, int row, int col, char prev, Slot slot, List<Slot> slots) {
+        // remember current cell value
+        char curr = grid[row][col];
 
-        // range checks for going off the grid, also check to stop walk on cell not part of any slot
-        if (row >= numRows || col >= numCols || grid[row][col] == '+') {
-            slots.add(slot);
-            return;
-        }
-
-        // stop walk on cell already traversed, with parent already traversed (not just an intersection)
-        if (parent == '=' && grid[row][col] == '=') return;
+        // stop walk on previous cell already traversed, with current already traversed (not just an intersection)
+        if (prev == '=' && curr == '=') return;
 
         // mark cell as already traversed, increase size of current slot
         grid[row][col] = '=';
         slot.size += 1;
 
-        // traverse right, traverse down
-        Slot newSlot = new Slot();
-        newSlot.orientation = (dir == Direction.Right) ? Direction.Down : Direction.Right;
-        newSlot.startRow = row;
-        newSlot.startCol = col;
-        newSlot.size = 1;
-        walkGrid(grid, row, col, Direction.Right, (dir == Direction.Right) ? slot : newSlot, slots);
-        walkGrid(grid, row, col, Direction.Down, (dir == Direction.Down) ? slot : newSlot, slots);
+        // initialize state
+        boolean isWalked = false;
+
+        // range check for looking right
+        if (col + 1 < numCols) {
+            // look right
+            char next = grid[row][col + 1];
+            if (next != '+') {
+                // traverse right, if part of a slot
+                isWalked = true;
+                Slot newSlot = slot;
+                if (slot.orientation != Direction.Right) {
+                    newSlot = new Slot();
+                    newSlot.orientation = Direction.Right;
+                    newSlot.startRow = row;
+                    newSlot.startCol = col;
+                    newSlot.size = 1;
+                }
+                walkGrid(grid, row, col + 1, curr, newSlot, slots);
+            }
+        }
+        if (!isWalked && slot.orientation == Direction.Right) {
+            // add slot, if reached end of slot, or edge of grid
+            slots.add(slot);
+        }
+
+        // reset state
+        isWalked = false;
+
+        // range check for looking down
+        if (row + 1 < numRows) {
+            // look down
+            char next = grid[row + 1][col];
+            if (next != '+') {
+                // traverse down, if part of a slot
+                isWalked = true;
+                Slot newSlot = slot;
+                if (slot.orientation != Direction.Down) {
+                    newSlot = new Slot();
+                    newSlot.orientation = Direction.Down;
+                    newSlot.startRow = row;
+                    newSlot.startCol = col;
+                    newSlot.size = 1;
+                }
+                walkGrid(grid, row + 1, col, curr, newSlot, slots);
+            }
+        }
+        if (!isWalked && slot.orientation == Direction.Down) {
+            // add slot, if reached end of slot, or edge of grid
+            slots.add(slot);
+        }
     }
 }
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        // BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-        BufferedReader bufferedReader = new BufferedReader(new FileReader("input1.txt"));
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        // BufferedReader bufferedReader = new BufferedReader(new FileReader("input1.txt"));
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
         List<String> crossword = IntStream.range(0, 10).mapToObj(i -> {
