@@ -22,7 +22,9 @@ Recursion:
 15. 135 mins (bunch of time spent to dabble with Long/Double/BigInteger, and also not building a 10GB string!)
 Stacks and Queues:
 16. 90 mins (was interrupted, problem was also started some time ago, but never finished)
-
+Recursion:
+17. 180~240 mins (not done yet, crossword puzzle word slots are hard to find and then properly enumerate!)
+18. 75 mins (not done yet, a few test cases are timing out, despite that solution can do up to n=36 in reasonable time!)
 
 stopped a problem at 1:29pm for work mtg
 restarted problem at 2:55pm or even 3pm
